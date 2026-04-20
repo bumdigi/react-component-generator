@@ -45,9 +45,13 @@ function App() {
 
   return (
     <div className="app">
+      <div className="page-banner" />
       <header className="app-header">
         <div className="header-left">
-          <h1>React 컴포넌트 생성기</h1>
+          <div className="header-title-row">
+            <span className="header-star">⭐</span>
+            <h1>TOON FORGE</h1>
+          </div>
           <p>컴포넌트를 설명하면 AI가 즉시 만들어드립니다</p>
         </div>
         <div className="header-right">
@@ -67,7 +71,7 @@ function App() {
           </div>
           <div className="api-key-input">
             <label htmlFor="api-key">
-              API Key{hasEnvKey && <span className="env-badge">.env 설정됨</span>}
+              API Key{hasEnvKey && <span className="env-badge">✓ .env 설정됨</span>}
             </label>
             <div className="api-key-field">
               <input
@@ -104,7 +108,7 @@ function App() {
       <section className="results-section">
         {components.length > 0 && (
           <div className="results-header">
-            <h2>생성된 컴포넌트 ({components.length})</h2>
+            <h2>★ 생성된 컴포넌트 ({components.length})</h2>
             <button className="btn-clear" onClick={clearAll}>
               전체 삭제
             </button>
@@ -113,16 +117,16 @@ function App() {
 
         {components.length === 0 && !isLoading && (
           <div className="empty-state">
-            <div className="empty-icon">&#9672;</div>
-            <p>아직 생성된 컴포넌트가 없습니다.</p>
-            <p>위에서 컴포넌트를 설명하고 생성 버튼을 눌러보세요!</p>
+            <span className="empty-icon">🎬</span>
+            <p>아직 생성된 컴포넌트가 없습니다!</p>
+            <p>위에서 컴포넌트를 설명하고 생성 버튼을 눌러보세요</p>
           </div>
         )}
 
         {isLoading && (
           <div className="loading-card">
             <div className="loading-pulse" />
-            <p>컴포넌트를 생성하고 있습니다...</p>
+            <p>컴포넌트를 생성하고 있습니다</p>
           </div>
         )}
 
