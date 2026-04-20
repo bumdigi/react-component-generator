@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { GeneratedComponent } from '../types';
 import { LivePreview } from './LivePreview';
 import { CodeView } from './CodeView';
+import { VIEWPORT_WIDTHS, VIEWPORT_LABELS, type Viewport } from './viewport';
 
 interface ComponentCardProps {
   component: GeneratedComponent;
@@ -15,6 +16,7 @@ type Tab = 'preview' | 'code';
 export function ComponentCard({ component, onRemove, onRegenerate, isLoading }: ComponentCardProps) {
   const [activeTab, setActiveTab] = useState<Tab>('preview');
   const [previewKey, setPreviewKey] = useState(0);
+  const [viewport, setViewport] = useState<Viewport>('desktop');
 
   return (
     <div className="component-card">
@@ -57,9 +59,23 @@ export function ComponentCard({ component, onRemove, onRegenerate, isLoading }: 
           코드
         </button>
       </div>
+      {activeTab === 'preview' && (
+        <div className="viewport-toolbar">
+          {(Object.keys(VIEWPORT_WIDTHS) as Viewport[]).map((vp) => (
+            <button
+              key={vp}
+              className={`btn-viewport ${viewport === vp ? 'btn-viewport--active' : ''}`}
+              onClick={() => setViewport(vp)}
+              title={`${VIEWPORT_WIDTHS[vp]}px`}
+            >
+              {VIEWPORT_LABELS[vp]}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="card-content">
         {activeTab === 'preview' ? (
-          <LivePreview key={previewKey} code={component.code} />
+          <LivePreview key={previewKey} code={component.code} viewportWidth={VIEWPORT_WIDTHS[viewport]} />
         ) : (
           <CodeView code={component.code} />
         )}
